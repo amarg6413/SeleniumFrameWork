@@ -12,13 +12,13 @@ public class WebSetup {
 
     public WebDriver driver = null;
 
-    private static Logger logger = LogManager.getRootLogger();
+    private static Logger logger = LogManager.getLogger(WebSetup.class);
     public void launchBrowser(){
         logger.info("Launching the browser");
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
-        options.addArguments("--headless=new");
+//        options.addArguments("--headless=new");
         driver = new ChromeDriver(options);
         logger.info("Browser Launched");
         setURL("https://google.com");

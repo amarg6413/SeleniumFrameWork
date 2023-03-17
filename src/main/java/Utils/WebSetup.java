@@ -7,21 +7,39 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.testng.annotations.*;
+import Listeners.TestListener;
 
+
+@Listeners({TestListener.class})
 public class WebSetup {
 
     public WebDriver driver = null;
 
     private static Logger logger = LogManager.getLogger(WebSetup.class);
-    public void launchBrowser(){
-        logger.info("Launching the browser");
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("start-maximized");
-//        options.addArguments("--headless=new");
-        driver = new ChromeDriver(options);
-        logger.info("Browser Launched");
-        setURL("https://google.com");
+
+    @BeforeSuite
+    @Parameters({"browser", "url","headless"})
+    public void launchBrowser(@Optional("chrome") String browser,@Optional("https://admin.devakhada.com/") String url,@Optional("false") boolean headless){
+        logger.info("Launching the "+browser+" browser");
+        if(browser.equals("chrome")) {
+            WebDriverManager.chromedriver().setup();
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("start-maximized");
+            options.addArguments("--remote-allow-origins=*");
+            if(headless) options.addArguments("--headless=new");
+            driver = new ChromeDriver(options);
+        }else if(browser.equals("firefox")){
+            WebDriverManager.firefoxdriver().setup();
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("start-maximized");
+            if(headless) options.addArguments("--headless=new");
+            driver = new FirefoxDriver(options);
+        }
+        logger.info(browser+" Browser Launched");
+        setURL(url);
     }
 
     public void setURL(String URL){
@@ -29,35 +47,14 @@ public class WebSetup {
         driver.get(URL);
     }
 
+    @AfterSuite
     public void quitBrowserSession(){
         logger.info("Closing the browser session");
         driver.quit();
     }
 
     public void closeWindow(){
-        logger.info("Closing the browser session");
+        logger.info("Closing the browser window");
         driver.close();
     }
-
-    public static void main(String[] args) throws InterruptedException {
-        WebSetup browserSetUp = new WebSetup();
-        browserSetUp.launchBrowser();
-        WebDriver driver1= browserSetUp.driver;
-        browserSetUp.setURL("https://www.instagram.com");
-        Thread.sleep(6000);
-        driver1.findElement(By.xpath("//input[@name='username']")).sendKeys("aryan.pal4545");
-        driver1.findElement(By.xpath("//input[@name='password']")).sendKeys("Aryan123321");
-        driver1.findElement(By.xpath("//div[text()='Log in']/parent::button")).click();
-
-        //        browserSetUp.setURL("https://www.google.com");
-        //        browserSetUp.closeWindow();
-        browserSetUp.quitBrowserSession();
-        //        logger.warn("ghkuh");
-        //        logger.debug("hhgfv");
-        //        logger.fatal("kgkh");
-        //        logger.trace("kghhk");
-        //        logger.error("kgiugb");
-    }
-
-
 }

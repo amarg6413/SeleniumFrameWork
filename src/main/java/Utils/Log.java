@@ -18,7 +18,7 @@ public class Log {
     }
 
     public void warn(Status statusReport, String message){
-        logger.info(message);
+        logger.warn(message);
         TestListener.test.get().log(statusReport,message);
     }
 }

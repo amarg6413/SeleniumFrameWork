@@ -2,26 +2,18 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg %n"/>
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg hello %n"/>
         </Console>
         <File name="File" fileName="logs/app.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
     </Appenders>
     <Loggers>
-<!--        <Logger name="ALL" level="ALL" additivity="true">-->
-<!--            <AppenderRef ref="Console"/>-->
-<!--            <AppenderRef ref="File"/>-->
-<!--        </Logger>-->
-<!--        <Logger name="Listeners" level="warn" additivity="true">-->
-<!--            <AppenderRef ref="Console"/>-->
-<!--            <AppenderRef ref="File"/>-->
-<!--        </Logger>-->
-<!--        <Logger name="Utils" level="warn" additivity="true">-->
-<!--            <AppenderRef ref="Console"/>-->
-<!--            <AppenderRef ref="File"/>-->
-<!--        </Logger>-->
-        <Root level="INFO">
+        <Logger name="org.selenium" level="warn" additivity="true">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Logger>
+        <Root level="warn">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </Root>

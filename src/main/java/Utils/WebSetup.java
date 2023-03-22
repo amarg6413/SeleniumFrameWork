@@ -18,7 +18,7 @@ public class WebSetup {
 
     public WebDriver driver = null;
 
-    private static Logger logger = LogManager.getLogger(WebSetup.class);
+    private static Logger logger = LogManager.getRootLogger();
 
     @BeforeSuite
     @Parameters({"browser", "url","headless"})

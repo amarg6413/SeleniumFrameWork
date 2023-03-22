@@ -14,12 +14,28 @@ public class DriverMethods extends Waits{
         this.driver=driver;
     }
 
-    public void checkMethod() {
-        System.out.println("This is check method");
+    public void click(WebElement element){
+        TestListener.test.get().log(Status.INFO,"Clicking on element ");
+        fluentWaitElementToVisible(element).click();
     }
 
-    public void click(WebElement element){
-        TestListener.test.get().log(Status.INFO,"Clicking on element");
-        fluentWaitElementToVisible(element).click();
+    public void submit(WebElement element){
+        TestListener.test.get().log(Status.INFO,"Submitting it");
+        fluentWaitElementToVisible(element).submit();
+    }
+
+    public void sendKeys(WebElement element,CharSequence... keysToSend){
+        TestListener.test.get().log(Status.INFO,"Entering keys:- "+keysToSend.toString());
+        fluentWaitElementToVisible(element).sendKeys(keysToSend);
+    }
+
+    public void clear(WebElement element){
+        TestListener.test.get().log(Status.INFO,"Clearing data for element");
+        fluentWaitElementToVisible(element).clear();
+    }
+
+    public String getTagName(WebElement element){
+        TestListener.test.get().log(Status.INFO,"Clearing data for element");
+        return fluentWaitElementToVisible(element).getTagName();
     }
 }

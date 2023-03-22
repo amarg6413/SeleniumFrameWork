@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
 
-public class Waits {
+public class Waits{
 
     private WebDriver driver;
     private WebDriverWait wait;
@@ -28,7 +28,7 @@ public class Waits {
         return (WebElement) fluentWait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public WebElement fluentWaitElementToVisible(String xpath) {
-        return (WebElement) fluentWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
+    public WebElement fluentWaitElementToVisible(WebDriver driver,By by){
+        return (WebElement) fluentWait.until(ExpectedConditions.visibilityOf(driver.findElement(by)));
     }
 }

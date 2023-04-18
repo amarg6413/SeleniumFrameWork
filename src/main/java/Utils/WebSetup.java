@@ -11,6 +11,8 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.*;
 import Listeners.TestListener;
 
+import java.nio.file.Paths;
+
 
 @Listeners({TestListener.class})
 public class WebSetup {
@@ -23,7 +25,8 @@ public class WebSetup {
     public void launchBrowser(@Optional("chrome") String browser,@Optional("https://admin.devakhada.com/") String url,@Optional("false") boolean headless){
         log.info(Status.INFO,"Launching the "+browser+" browser");
         if(browser.equals("chrome")) {
-            WebDriverManager.chromedriver().setup();
+//            WebDriverManager.chromedriver().setup();
+            System.setProperty("webdriver.chrome.driver", "driver/chromedriver");
             ChromeOptions options = new ChromeOptions();
             options.addArguments("start-maximized");
             options.addArguments("--remote-allow-origins=*");

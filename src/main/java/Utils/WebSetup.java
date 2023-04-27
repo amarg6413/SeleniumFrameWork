@@ -22,11 +22,11 @@ public class WebSetup {
     private Log log=new Log();
     @BeforeSuite
     @Parameters({"browser", "url","headless"})
-    public void launchBrowser(@Optional("chrome") String browser,@Optional("https://admin.devakhada.com/") String url,@Optional("false") boolean headless){
+    public void launchBrowser(@Optional("chrome") String browser,@Optional("https://www.google.com/") String url,@Optional("false") boolean headless){
         log.info(Status.INFO,"Launching the "+browser+" browser");
         if(browser.equals("chrome")) {
-//            WebDriverManager.chromedriver().setup();
-            System.setProperty("webdriver.chrome.driver", "driver/chromedriver");
+            WebDriverManager.chromedriver().setup();
+//            System.setProperty("webdriver.chrome.driver", "/Users/amar/Automation/SeleniumFrameWork/driver/chromedriver");
             ChromeOptions options = new ChromeOptions();
             options.addArguments("start-maximized");
             options.addArguments("--remote-allow-origins=*");
@@ -57,5 +57,9 @@ public class WebSetup {
     public void closeWindow(){
         log.info(Status.INFO,"Closing the browser window");
         driver.close();
+    }
+
+    public WebDriver getDriver(){
+        return driver;
     }
 }
